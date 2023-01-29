@@ -6,23 +6,21 @@ import About from './pages/About';
 import DataVisualizations from './pages/DataVisualizations';
 import News from './pages/News';
 import Home from './pages/Home';
+import {Route, Routes} from 'react-router-dom'
 function App(){
-    let component
-    switch(window.location.pathname){
-        case "/": component = <Home/>
-            break
-        case "/datavisualizations": component = <DataVisualizations/>
-            break
-        case "/about": component = <About/>
-            break
-        case "/news": component = <News/>
-            break
-        default: console.error("Fix Path")
-    }
+    
     return(
         <>
         <Navbar />
-        <div className='container'>  {component}</div>
+        <div className='container'>  
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/DataVisualizations" element={<DataVisualizations />} />
+                <Route path="/News" element={<News />} />
+                <Route path="/About" element={<About />} />
+
+            </Routes>
+        </div>
         </>
     );
 }
