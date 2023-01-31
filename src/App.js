@@ -1,6 +1,6 @@
 import React from 'react';
 import "./stylesheet.css"
-
+import Footer from "./Footer"
 import Navbar from "./Navbar";
 import About from './pages/About';
 import DataVisualizations from './pages/DataVisualizations';
@@ -21,6 +21,7 @@ function App(){
 
             </Routes>
         </div>
+        <Footer />
         </>
     );
 }
