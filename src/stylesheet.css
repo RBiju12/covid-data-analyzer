@@ -63,3 +63,28 @@ body{
 .logo{
     float:right;
 }
+
+.footer{
+    background-color: #5378DA;
+    color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    font-size: 10px;
+    
+}
+
+.resources{
+    float: left;
+
+}
+
+.newsletter{
+    position: absolute;
+    top: 10px;
+    right: 40px;
+}
+
+.connect a{
+    margin: 7px 7px 7px 7px;
+}
