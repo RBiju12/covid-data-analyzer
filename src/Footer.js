@@ -25,8 +25,8 @@ function Footer(){
         </div>
         <div className='connect'>
             <h1>Connect</h1>
-            <a href="linkedin.com/in/rishan-biju-759a20242"><img src={linkedin} height="30px" width="40px" alt="Linkedin" /></a>
-            <a href="gmail.com"><img src={gmail} height="30px" width="40px" alt="Gmail" /></a>
+            <a href="https://www.linkedin.com/in/rishan-biju-759a20242"><img src={linkedin} height="30px" width="40px" alt="Linkedin" /></a>
+            <a href="https://gmail.com"><img src={gmail} height="30px" width="40px" alt="Gmail" /></a>
 
             
         </div>

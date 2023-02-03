@@ -24,6 +24,7 @@ body{
     align-items: stretch;
     gap: 2rem;
     padding: 0 1rem;
+    height:60%;
 
 }
 
@@ -87,4 +88,17 @@ body{
 
 .connect a{
     margin: 7px 7px 7px 7px;
+}
+
+.contain{
+    background-color: #BADCB5;
+}
+.newsheader{
+    background-color: #BADCB5;
+}
+.aboutcontain{
+    background: #BADCB5;
+}
+.about{
+    background: #BADCB5;
 }
