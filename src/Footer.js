@@ -33,6 +33,7 @@ function Footer(){
 
         <div className='newsletter'>
             <h2><strong>Join our Newsletter</strong></h2>
+            <br></br>
 
             <input type="text" placeholder="ex.janedoe@gmail.com"/>
             <button type="submit" onClick={handleSubmit}>Enter</button>
