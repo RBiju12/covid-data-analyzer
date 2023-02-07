@@ -1,7 +1,30 @@
 import React from 'react'
 import logoimage from './HomeImage.png'
+import { useState, useEffect } from 'react';
+import {dataref} from "./firebase"
 
 function Home(){
+
+   const[email, setEmail] = useState('')
+   const[allValue, setAllValue]=useState([])
+
+   const handleAdd = () => {
+      if(email !==""){
+      dataref.ref().child('all').push(email)
+      setEmail("")
+   }
+}
+
+useEffect(() =>{
+   dataref.ref().child('Users').on('value', data=>{
+      const getData=Object.values(data.val())
+      setAllValue(getData)
+   })
+}, [])
+console.log(allValue)
+
+
+
    return(
    <div className='containerhome'>
       <div className='backgroundlogo'>
@@ -21,8 +44,9 @@ function Home(){
       <br></br>
       <br></br>
       <br></br>
-      <button className='emailbutton'>Submit</button>
-      <input className="emailform" type="text" placeholder='ex. janedoe@gmail.com'></input>
+      <button className='emailbutton' onClick={handleAdd}>Submit</button>
+      <input className="emailform" placeholder='ex. janedoe@gmail.com' value={email} onChange={(e) =>
+      {setEmail(e.target.value)}} />
       <p id="alerttext"><i>Sign up to receive weekly updates on COVID data</i> </p>
 
 

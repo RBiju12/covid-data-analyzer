@@ -36,7 +36,7 @@ function Footer(){
             <br></br>
 
             <input type="text" placeholder="ex.janedoe@gmail.com"/>
-            <button type="submit" onClick={handleSubmit}>Enter</button>
+            <button type="submit" onClick={handleSubmit}>Submit</button>
         </div>
         
         {`Copyright  © Covid Analyzer ${year}`}
