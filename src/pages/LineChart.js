@@ -10,7 +10,7 @@ function LineChart(){
       id: 'test'
     }, 
     xaxis: {
-      categories: ["September", "October", "November", "December", "January", "February"]
+      categories: []
     }
   })
 
@@ -23,20 +23,37 @@ function LineChart(){
 
   useEffect(() => {
     const deaths = []
-   axios.get("https://api.covidtracking.com/v1/us/daily.json").then(response=>{
+    const dates = []
+   return axios.get("https://api.covidtracking.com/v1/us/daily.json").then(response=>{
     console.log("response", response)
     response.data.data.map(item => {
       console.log("item", item)
       deaths.push(item.death)
+      dates.push(item.date)
     })
+    setOptions({
+      chart: {
+        id: 'Deaths'
+      },
+      xaxis: {
+        categories: dates
+      }
+    })
+    setSeries([{
+    name: "serie1",
+    data: deaths
+    }])
       console.log("deaths", deaths)
+   }).catch(e => {
+    alert(e);
    })
   }, []);
 
 
   return (
      <div>
-      <Chart options={options} series={series} type="line" width={800} height={500}/>
+      <Chart options={options} series={series} type="line" width={800} height={300}/>
+      <p align="left"><strong>Deaths</strong></p>
       </div>
 
   )

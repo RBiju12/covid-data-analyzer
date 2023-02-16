@@ -1,7 +1,15 @@
 import React from 'react'
 import Profile from './profile.png'
+import { useState } from 'react';
 
 function About(){
+ const [email, setEmail] = useState('')
+
+  const handleClick = () => {
+    setEmail('rishanbiju@gmail.com');
+  }
+
+
    return(
     <>
    <div className='aboutcontain'>
@@ -20,8 +28,8 @@ function About(){
       <br></br>
       Additional Contact information:
       <br></br>
-      <br></br>
-      Email: rishanbiju@gmail.com
+      <p>{email}</p>
+      <button onClick={handleClick}>Email</button>
     </p>
     </div>
     </>
