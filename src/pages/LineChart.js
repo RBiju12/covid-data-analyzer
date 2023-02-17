@@ -2,7 +2,6 @@ import React from "react"
 import { useEffect, useState } from "react"
 import Chart from 'react-apexcharts'
 import axios from 'axios'
-
 function LineChart(){
     
   const [options, setOptions] = useState({
@@ -22,11 +21,17 @@ function LineChart(){
 
 
   useEffect(() => {
+    getData();
+
+  }, []);
+
+const getData = async() => {
     const deaths = []
     const dates = []
-   return axios.get("https://api.covidtracking.com/v1/us/daily.json").then(response=>{
+   const response = await axios.get("https://api.covidtracking.com/v1/us/daily.json")
+   .then((response)=>{ 
     console.log("response", response)
-    response.data.data.map(item => {
+    response.data.map(item => {
       console.log("item", item)
       deaths.push(item.death)
       dates.push(item.date)
@@ -47,7 +52,9 @@ function LineChart(){
    }).catch(e => {
     alert(e);
    })
-  }, []);
+  }
+
+
 
 
   return (
