@@ -1,4 +1,4 @@
-import LineChart from "./LineChart";
+import StateSelector from "./StateSelector";
 
 function DataVisualizations(){
 
@@ -7,7 +7,7 @@ function DataVisualizations(){
         <>
         <h1>Data Visualizations</h1>
         <div className = "datacontain">
-        <LineChart/>
+        <StateSelector/>
         </div>
         </>
     )
