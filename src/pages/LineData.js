@@ -1,15 +1,15 @@
 import axios from 'axios'
 
-  const covidurl = "https://api.covidactnow.org/v2/states.json?apiKey=0619b64874b843fead2c2517b3f6b0f1"
+  const covidurl = "https://api.covidtracking.com/v1/states/current.json"
     
   export const fetchData = async(state) => {
     let userchange = covidurl;
     if(state){
-      userchange = `${covidurl}/country/{state}`
+      userchange = `${covidurl}/states/{state}`
     }
     try{
-      const {data: {weeklyCovidAdmissionsPer100k, infectionRate, deaths, hospitalBeds}} = await axios.get(userchange)
-      return {weeklyCovidAdmissionsPer100k, infectionRate, deaths, hospitalBeds}
+      const {data: {positive, death}} = await axios.get(userchange)
+      return {positive, death}
     }
     catch(error){
       console.log(error)
@@ -19,8 +19,8 @@ import axios from 'axios'
  export const fetchDailyData = async() => {
     try{
       const {data} = await axios.get(`${covidurl}/daily`);
-      return data.map(({cases, deaths, lastUpdatedDate}) => ({cases:
-        cases, deaths: deaths, lastUpdatedDate}));
+      return data.map(({positiveCasesViral, hospitalized, positiveIncrease}) => ({cases:
+        positiveCasesViral, hospitalized: hospitalized, positiveIncrease}));
     }
     catch(error){
       return error
@@ -29,8 +29,8 @@ import axios from 'axios'
 
  export const fetchStates = async() => {
     try{
-      const{data: {country}} = await axios.get(`${covidurl}/country`)
-      return country.map((item) => item.state);
+      const{data: {states}} = await axios.get(`${covidurl}/states`)
+      return states.map((item) => item.state);
     }
     catch(error){
       return error

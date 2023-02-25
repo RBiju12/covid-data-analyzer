@@ -1,38 +1,37 @@
-import React, {useState, useEffect} from 'react';
-import {NativeSelect, FormControl} from '@material-ui/core'
-import {fetchStates} from './LineData';
-import "./formwidgets.css"
-function StateSelector({handleStateChange}){
-    const[fetchState, setFetchState] = useState([])
+import React from 'react'
+import states from './states.json'
+import PropTypes  from 'prop-types';
 
-
-    useEffect(() => {
-        const fetchAPI = async() => {
-            setFetchState(await fetchStates());
-        }
-        fetchAPI();
-    }, [setFetchState])
-
-    console.log(fetchState);
-
+class StateSelector extends React.Component{
+    
+    handleChange = event => {
+        const {onChange} = this.props;
+        onChange(event.target.value);
+    };
+    render(){
+        const{id, className} = this.props
     return(
-        <FormControl className={formControl}>
-        <NativeSelect defaultValue="" onChange = {(e) => handleStateChange(e.target.value)} variant="filled">
-            <option value="">State</option>
-        {fetchState.map((state, i) => <option key={i} value={state}>{state}
-        </option>)}
-        </NativeSelect>
-        </FormControl>
+        <select id={id} className={className} onChange={this.handleChange} >
+        {states.map(item => (
+            <option key={item.abbreviation} value={item.abbreviation}>
+            {item.name}
 
-
+            </option>
+        ))}
+        </select>
     )
-
+        }
 
 }
 
 
+const propTypes = {
+
+    id: PropTypes.string,
+    onChange: PropTypes.func,
+    className: PropTypes.string
+};
+
+StateSelector.propTypes = propTypes;
+
 export default StateSelector;
-
-
-
-
