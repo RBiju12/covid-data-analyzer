@@ -2,6 +2,7 @@ import React from 'react'
 import states from './states.json'
 import PropTypes  from 'prop-types';
 import ReactApexChart from 'react-apexcharts';
+import Filter from './Filter'
 
 class StateSelector extends React.Component{
 
@@ -38,12 +39,35 @@ class StateSelector extends React.Component{
                 options: {
                     ...this.state.options,
                     xaxis: {
-                        categories: categories
+                        categories: dates
                     }
                 },
                 series: [{
                     name: 'series1',
-                    data: seriesData
+                    data: cases
+                }]
+            })
+        })
+    }
+
+
+    handleFilter = (state) => {
+        fetch(`https://api.covidtracking.com/v1/states/current.json?filter=${state}`)
+        .then(response=> response.json())
+        .then(data => {
+            const dates = data.map(item => item.date);
+            const cases = data.map(item => item.probableCases);
+       
+            this.setState({
+                options: {
+                    ...this.state.options,
+                    xaxis: {
+                        categories: dates
+                    }
+                },
+                series: [{
+                    name: 'series1',
+                    data: cases
                 }]
             })
         })
@@ -75,6 +99,7 @@ class StateSelector extends React.Component{
         </select>
         <div className="chart1">
                 <ReactApexChart options={this.state.options} series={this.state.series} type="line" height={200} />
+                <Filter onChange={this.handleFilter.bind(this)} />
             </div>
             </>
     )
