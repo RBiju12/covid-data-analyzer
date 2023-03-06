@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 class Filter extends React.Component {
     constructor(props){
         super(props)
@@ -8,8 +7,9 @@ class Filter extends React.Component {
     }
   
     handleChange = event => {
-      this.setState({ filterValue: event.target.value });
-      this.props.onChange(event.target.value);
+      const value = event.target.value
+      this.setState({ filterValue: value});
+      this.props.onChange(value);
     };
   
     render() {
