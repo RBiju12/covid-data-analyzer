@@ -2,7 +2,7 @@ import React from 'react'
 import states from './states.json'
 import PropTypes  from 'prop-types';
 import ReactApexChart from 'react-apexcharts';
-import Filter from './Filter'
+import Filter from './Filter';
 
 class StateSelector extends React.Component{
 
@@ -27,13 +27,20 @@ class StateSelector extends React.Component{
 
         }
 
+    fetchData = (state) => {
+        let url = "https://api.covidtracking.com/v1/states/daily.json"
+        if(state){
+            url += `?state=${state}`
 
-    fetchData = () => {
-        fetch("https://api.covidtracking.com/v1/states/current.json")
+        }
+        fetch(url)
         .then(response=> response.json())
         .then(data => {
-            const dates = data.map(item => item.date);
-            const cases = data.map(item => item.probableCases);
+
+            const updateddata = data.slice(-8).reverse()
+
+            const dates = updateddata.map(item => item.date);
+            const cases = updateddata.map(item => item.positiveIncrease);
        
             this.setState({
                 options: {
@@ -47,47 +54,27 @@ class StateSelector extends React.Component{
                     data: cases
                 }]
             })
-        })
+        }).catch((error) => console.log(error));
     }
 
 
     handleFilter = (state) => {
-        fetch(`https://api.covidtracking.com/v1/states/current.json?filter=${state}`)
-        .then(response=> response.json())
-        .then(data => {
-            const dates = data.map(item => item.date);
-            const cases = data.map(item => item.probableCases);
-       
-            this.setState({
-                options: {
-                    ...this.state.options,
-                    xaxis: {
-                        categories: dates
-                    }
-                },
-                series: [{
-                    name: 'series1',
-                    data: cases
-                }]
-            })
-        })
+        this.fetchData(state)
     }
 
 
-    ComponentMountCheck = () => {
+    componentDidMount = () => {
         this.fetchData()
     }
 
-
-
     handleChange = event => {
-        const {onChange} = this.props;
-        onChange(event.target.value);
+        const {value} = event.target 
+        this.fetchData(value)
     };
     render(){
         const{id, className} = this.props
     return(
-        <>
+        <div>
         <select id={id} className={className} onChange={this.handleChange}>
             {states.map(item => (
 
@@ -99,9 +86,10 @@ class StateSelector extends React.Component{
         </select>
         <div className="chart1">
                 <ReactApexChart options={this.state.options} series={this.state.series} type="line" height={200} />
-                <Filter onChange={this.handleFilter.bind(this)} />
+                <br />
+                <Filter onChange={this.handleFilter.bind(this)} key={this.state.filterValue}/>
             </div>
-            </>
+            </div>
     )
         }
 
