@@ -1,6 +1,8 @@
 import React from 'react'
 import Profile from './profile.png'
 import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function About(){
  const [email, setEmail] = useState('')
@@ -23,13 +25,13 @@ function About(){
       <br></br>
 
 
-    <img src={Profile} height="380px" width="400px" alt="Profile"></img>
+    <img src={Profile} height="330px" width="400px" alt="Profile"></img>
 
       <br></br>
       Additional Contact information:
       <br></br>
       <p>{email}</p>
-      <button onClick={handleClick}>Email</button>
+      <Button onClick={handleClick}>Email</Button>
     </p>
     </div>
     </>

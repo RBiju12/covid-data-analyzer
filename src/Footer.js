@@ -1,13 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import linkedin from './Linkedin.png';
 import gmail from './Gmail.png';
-
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Footer(){
 
-    const handleSubmit = () => {
-        alert("Thank you for subscribing to the newsletter!")
-    }
+
+    const[userText, setUserText] = useState('');
+
+        const handleSubmit = (event) => {
+            event.preventDefault();
+
+            if(userText.trim() === ''){
+        alert("Please enter in the field!")
+            }
+            else if(!/(@gmail|outlook)/.test(userText)){
+                alert("Please enter a valid email address!")
+            }
+            else{
+         alert(`Thank you for submitting the newsletter: ${userText}`)
+            }
+}
 
 
 
@@ -34,9 +48,9 @@ function Footer(){
         <div className='newsletter'>
             <h2><strong>Join our Newsletter</strong></h2>
             <br></br>
+            <input type="text" value={userText} placeholder="ex.janedoe@gmail.com" onChange={(e) => setUserText(e.target.value)}/>
 
-            <input type="text" placeholder="ex.janedoe@gmail.com"/>
-            <button type="submit" onClick={handleSubmit}>Submit</button>
+            <Button type="submit" onClick={handleSubmit}>Submit</Button>
         </div>
         
         {`Copyright  © Covid Analyzer ${year}`}

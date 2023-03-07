@@ -2,6 +2,8 @@ import React from 'react'
 import logoimage from './HomeImage.png'
 import { useState, useEffect } from 'react';
 import {dataref} from "./firebase"
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Home(){
 
@@ -44,7 +46,7 @@ console.log(allValue)
       <br></br>
       <br></br>
       <br></br>
-      <button className='emailbutton' onClick={handleAdd}>Submit</button>
+      <Button className='emailbutton' onClick={handleAdd}>Submit</Button>
       <input className="emailform" placeholder='ex. janedoe@gmail.com' value={email} onChange={(e) =>
       {setEmail(e.target.value)}} />
       <p id="alerttext"><i>Sign up to receive weekly updates on COVID data</i> </p>
