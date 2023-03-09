@@ -1,4 +1,4 @@
-import React from 'react'
+
 import Profile from './profile.png'
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
@@ -25,7 +25,7 @@ function About(){
       <br></br>
 
 
-    <img src={Profile} height="330px" width="400px" alt="Profile"></img>
+    <img src={Profile} height="320px" width="400px" alt="Profile"></img>
 
       <br></br>
       Additional Contact information:

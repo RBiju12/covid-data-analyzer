@@ -135,3 +135,11 @@ h3{
 .alerttext{
     text-align: center;
 }
+
+.cdc:hover{
+    color:white
+}
+
+.hopkins:hover{
+    color:white 
+}

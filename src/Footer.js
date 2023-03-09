@@ -6,8 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Footer(){
 
-
     const[userText, setUserText] = useState('');
+    const[submittedEmails, setSubmittedEmails] = useState([])
 
         const handleSubmit = (event) => {
             event.preventDefault();
@@ -15,11 +15,15 @@ function Footer(){
             if(userText.trim() === ''){
         alert("Please enter in the field!")
             }
-            else if(!/(@gmail|outlook)/.test(userText)){
+            else if(!/(@gmail|outlook|hotmail)/.test(userText)){
                 alert("Please enter a valid email address!")
             }
+            else if(submittedEmails.includes(userText)){
+                alert("Email has already been used")
+            }
             else{
-         alert(`Thank you for submitting the newsletter: ${userText}`)
+        setSubmittedEmails([...submittedEmails, userText]);
+        alert(`Thank you for submitting the newsletter: ${userText}`)
             }
 }
 
@@ -33,9 +37,9 @@ function Footer(){
         <footer>
         <div className='resources'>
         <h1><strong>Resources</strong></h1>
-        <a href="https://www.cdc.gov/">Center for Disease Control</a>
+        <a href="https://www.cdc.gov/" className='cdc'>Center for Disease Control</a>
         <br></br>
-        <a href="https://coronavirus.jhu.edu/map.html"> John's Hopkins Covid Dashboard</a>
+        <a href="https://coronavirus.jhu.edu/map.html" className='hopkins'> John's Hopkins Covid Dashboard</a>
         </div>
         <div className='connect'>
             <h1>Connect</h1>

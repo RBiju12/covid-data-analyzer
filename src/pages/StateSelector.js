@@ -1,8 +1,6 @@
 import React from 'react'
-import states from './states.json'
 import PropTypes  from 'prop-types';
 import ReactApexChart from 'react-apexcharts';
-import Filter from './Filter';
 
 class StateSelector extends React.Component{
 
@@ -22,7 +20,8 @@ class StateSelector extends React.Component{
             series: [{
                 name: 'series1',
                 data: []
-            }]
+            }],
+            filterValue: ''
         };
 
         }
@@ -30,17 +29,19 @@ class StateSelector extends React.Component{
     fetchData = (state) => {
         let url = "https://api.covidtracking.com/v1/states/daily.json"
         if(state){
-            url += `?state=${state}`
+            url += `?state=${state}`;
 
         }
         fetch(url)
         .then(response=> response.json())
         .then(data => {
+            const updateddata = data
+            .filter((item) => item.date.toString().startsWith('2021'))
+            .slice(-8)
+            .reverse();
 
-            const updateddata = data.slice(-8).reverse()
-
-            const dates = updateddata.map(item => item.date);
-            const cases = updateddata.map(item => item.positiveIncrease);
+            const dates = updateddata.map((item) => item.date);
+            const cases = updateddata.map((item) => item.positive);
        
             this.setState({
                 options: {
@@ -58,8 +59,14 @@ class StateSelector extends React.Component{
     }
 
 
-    handleFilter = (state) => {
-        this.fetchData(state)
+    handleFilterChange = (value) => {
+        this.setState({filterValue: value});
+        if(value) {
+            this.fetchData(value);
+        }
+        else{
+            this.fetchData();
+        }
     }
 
 
@@ -72,26 +79,26 @@ class StateSelector extends React.Component{
         this.fetchData(value)
     };
     render(){
-        const{id, className} = this.props
     return(
-        <div>
-        <select id={id} className={className} onChange={this.handleChange}>
-            {states.map(item => (
-
-                <option key={item.abbreviation} value={item.abbreviation}>
-                    {item.name}
-
-                </option>
-            ))}
-        </select>
+    <>
         <div className="chart1">
-                <ReactApexChart options={this.state.options} series={this.state.series} type="line" height={200} />
-                <br />
-                <Filter onChange={this.handleFilter.bind(this)} key={this.state.filterValue}/>
-            </div>
-            </div>
+            <ReactApexChart options={this.state.options} series={this.state.series} type="line" height={200} />
+            <br />
+        </div>
+        <div className='dropdown' />
+        <label htmlFor="state">Filter by state:</label>
+        <select id="state" value={this.state.filterValue} onChange={(event) => this.handleFilterChange(event.target.value)}>
+                <option value="">All</option>
+                <option value="CA">California</option>
+                <option value="NY">New York</option>
+                <option value="TX">Texas</option>
+                <option value="FL">Florida</option>
+        </select>
+        <div/>
+    </>
+        
     )
-        }
+}
 
 }
 
