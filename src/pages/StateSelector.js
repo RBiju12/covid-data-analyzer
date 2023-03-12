@@ -1,115 +1,141 @@
-import React from 'react'
-import PropTypes  from 'prop-types';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import ReactApexChart from 'react-apexcharts';
+import states from './states.json';
 
-class StateSelector extends React.Component{
 
-    
-    constructor(props){
-        super(props);
+const StateSelector = ({ id, className }) => {
+  const [options, setOptions] = useState({
+    chart: {
+      id: 'line-chart',
+    },
+    xaxis: {
+      categories: [],
+    },
+  });
 
-        this.state = {
-            options: {
-            chart: {
-                id: 'line-chart'
-            },
-            xaxis: {
-                categories: []
-            }
-            },
-            series: [{
-                name: 'series1',
-                data: []
-            }],
-            filterValue: ''
-        };
 
-        }
+  const [series, setSeries] = useState([
+    {
+      name: 'series1',
+      data: [],
+    },
+  ]);
 
-    fetchData = (state) => {
-        let url = "https://api.covidtracking.com/v1/states/daily.json"
-        if(state){
-            url += `?state=${state}`;
 
-        }
-        fetch(url)
-        .then(response=> response.json())
-        .then(data => {
-            const updateddata = data
-            .filter((item) => item.date.toString().startsWith('2021'))
-            .slice(-8)
-            .reverse();
+  const [filterValue, setFilterValue] = useState('');
 
-            const dates = updateddata.map((item) => item.date);
-            const cases = updateddata.map((item) => item.positive);
-       
-            this.setState({
-                options: {
-                    ...this.state.options,
-                    xaxis: {
-                        categories: dates
-                    }
-                },
-                series: [{
-                    name: 'series1',
-                    data: cases
-                }]
-            })
-        }).catch((error) => console.log(error));
+
+  const fetchData = (state) => {
+
+
+    let url = 'https://api.covidtracking.com/v1/states/daily.json';
+    if (state) {
+      url += `?state=${state}`;
+
+
     }
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        // const states = data.filter(st => st.state.startsWith(state)).map((item) => item.date);
+        // const states = data.filter(st => st.state.startsWith("AK")).map((item) => item.positive);
 
 
-    handleFilterChange = (value) => {
-        this.setState({filterValue: value});
-        if(value) {
-            this.fetchData(value);
-        }
-        else{
-            this.fetchData();
-        }
+
+
+        // console.log(states);
+        // const updatedData = data
+        //   .filter((item) => item.date.toString().startsWith('2021'))
+        //   .slice(-8)
+        //   .reverse();
+
+
+        const dates = data.filter(st => st.state.startsWith(state)).map((item) => item.date).slice(-5)
+        //const dates = updatedData.map((item) => item.date);
+       // const cases = updatedData.map((item) => item.positive);
+       const positiveValues = data.filter(st => st.state.startsWith(state)).map((item) => item.positive).slice(-5)
+
+
+        setOptions({
+          ...options,
+          xaxis: {
+            categories: dates,
+          },
+        });
+        setSeries([
+          {
+            name: 'series1',
+            data: positiveValues,
+          },
+        ]);
+      })
+      .catch((error) => console.log(error));
+  };
+
+
+  const handleFilterChange = (value) => {
+    setFilterValue(value);
+    console.log("Value is " + value);
+    if (value) {
+      fetchData(value);
+    } else {
+      fetchData();
     }
+  };
 
 
-    componentDidMount = () => {
-        this.fetchData()
-    }
+  const handleChange = (event) => {
+    const { value } = event.target;
+    handleFilterChange(value);
+  };
 
-    handleChange = event => {
-        const {value} = event.target 
-        this.fetchData(value)
-    };
-    render(){
-    return(
+
+//   useEffect(() => {
+//     fetchData();
+//   }, []);
+
+
+  return (
     <>
-        <div className="chart1">
-            <ReactApexChart options={this.state.options} series={this.state.series} type="line" height={200} />
-            <br />
-        </div>
-        <div className='dropdown' />
+      <div className="chart1">
+        <ReactApexChart
+          options={options}
+          series={series}
+          type="bar"
+          height={200}
+        />
+        <br />
+      </div>
+      <div className="dropdown">
         <label htmlFor="state">Filter by state:</label>
-        <select id="state" value={this.state.filterValue} onChange={(event) => this.handleFilterChange(event.target.value)}>
-                <option value="">All</option>
-                <option value="CA">California</option>
-                <option value="NY">New York</option>
-                <option value="TX">Texas</option>
-                <option value="FL">Florida</option>
+        <select
+          id={id}
+          className={className}
+          onChange={handleChange}
+          value={filterValue}
+        >
+          <option value="">All States</option>
+          {states.map((item) => (
+            <option key={item.abbreviation} value={item.abbreviation}>
+              {item.name}
+            </option>
+          ))}
         </select>
-        <div/>
+      </div>
     </>
-        
-    )
-}
-
-}
-
-
-const propTypes = {
-
-    id: PropTypes.string,
-    onChange: PropTypes.func,
-    className: PropTypes.string
+  );
 };
 
-StateSelector.propTypes = propTypes;
+
+StateSelector.propTypes = {
+  id: PropTypes.string,
+  className: PropTypes.string,
+};
+
 
 export default StateSelector;
+
+
+
+
