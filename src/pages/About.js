@@ -33,7 +33,6 @@ function About(){
 
     <img src={Profile} height="320px" width="400px" alt="Profile"></img>
 
-
       <br></br>
       Additional Contact information:
       <br></br>
