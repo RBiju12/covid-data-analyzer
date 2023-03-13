@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import PropTypes from 'prop-types';
 import ReactApexChart from 'react-apexcharts';
 import states from './states.json';
@@ -38,25 +38,39 @@ const StateSelector = ({ id, className }) => {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        // const states = data.filter(st => st.state.startsWith(state)).map((item) => item.date);
-        // const states = data.filter(st => st.state.startsWith("AK")).map((item) => item.positive);
+
+
+        // const dates = data
+        // .filter(item => item.state.startsWith(state))
+        // .map(item => item.date)
+        // .slice(0, 5)
+        // .sort((a, b) => a - b);
+
+        const dataForState = data
+  .filter(item => item.state.startsWith(state))
+  .map(item => ({ date: item.date, positive: item.positive }))
+  // .sort((a, b) => b.date - a.date);
+
+
+  const dates = dataForState.slice(0, 5).map(item => item.date).sort((a, b) => a - b);
+  const positiveValues = dataForState.slice(0, 5).map(item => item.positive).sort((a, b) => a - b);
 
 
 
-
-        // console.log(states);
-        // const updatedData = data
-        //   .filter((item) => item.date.toString().startsWith('2021'))
-        //   .slice(-8)
-        //   .reverse();
-
-
-        const dates = data.filter(st => st.state.startsWith(state)).map((item) => item.date).slice(-5)
+        
         //const dates = updatedData.map((item) => item.date);
        // const cases = updatedData.map((item) => item.positive);
-       const positiveValues = data.filter(st => st.state.startsWith(state)).map((item) => item.positive).slice(-5)
 
 
+      //  const positiveValues = data
+      //  .filter(item => item.state.startsWith(state))
+      //  .reduce((result, item) => {
+      //   console.log(item.positive)
+
+      //    result.push(item.positive);
+      //    return result;
+      //  }, [])
+      //  .slice(0, 5);
         setOptions({
           ...options,
           xaxis: {
@@ -76,7 +90,6 @@ const StateSelector = ({ id, className }) => {
 
   const handleFilterChange = (value) => {
     setFilterValue(value);
-    console.log("Value is " + value);
     if (value) {
       fetchData(value);
     } else {
@@ -115,7 +128,7 @@ const StateSelector = ({ id, className }) => {
           onChange={handleChange}
           value={filterValue}
         >
-          <option value="">All States</option>
+          <option value="">Choose State</option>
           {states.map((item) => (
             <option key={item.abbreviation} value={item.abbreviation}>
               {item.name}
