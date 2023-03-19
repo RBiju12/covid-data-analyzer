@@ -8,7 +8,6 @@ function About(){
  const [email, setEmail] = useState('')
  
 
-
   const handleClick = () => {
     setEmail('rishanbiju@gmail.com');
   }
