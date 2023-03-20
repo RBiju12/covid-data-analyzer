@@ -7,8 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function About(){
  const [email, setEmail] = useState('')
  
-
-  const handleClick = () => {
+ const handleClick = () => {
     setEmail('rishanbiju@gmail.com');
   }
 

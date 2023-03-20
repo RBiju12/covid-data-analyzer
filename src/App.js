@@ -4,6 +4,7 @@ import Footer from "./Footer"
 import Navbar from "./Navbar";
 import About from './pages/About';
 import DataVisualizations from './pages/DataVisualizations';
+import Trends from './pages/Trends'
 import News from './pages/News';
 import Home from './pages/Home';
 import {Route, Routes} from 'react-router-dom'
@@ -16,6 +17,7 @@ function App(){
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/DataVisualizations" element={<DataVisualizations />} />
+                <Route path="/Trends" element={<Trends />} />
                 <Route path="/News" element={<News />} />
                 <Route path="/About" element={<About />} />
 

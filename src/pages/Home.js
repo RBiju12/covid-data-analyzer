@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import {dataref} from "./firebase"
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "./pagestyles.css"
 
 function Home(){
 
@@ -41,7 +42,7 @@ console.log(allValue)
       <div className='alerts'>
       <h1 align="center">Alerts:</h1>
       <h2>COVID Data Analyzer Updates</h2>
-      <h3>Email Address:</h3>
+      <h3 classname="hometext">Email Address:</h3>
       <br></br>
       <br></br>
       <br></br>

@@ -9,6 +9,7 @@ function Navbar(){
         <Link to="/" className="webtitle">Covid Data Analyzer</Link>
         <ul>
            <CustomLink to="/DataVisualizations">Data Visualizations</CustomLink>
+           <CustomLink to="/Trends">Trends</CustomLink>
            <CustomLink to ="/News">News</CustomLink>
            <CustomLink to ="/About">About</CustomLink>
         </ul>
