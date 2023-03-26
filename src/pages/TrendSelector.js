@@ -98,7 +98,7 @@ const TrendSelector = ({ id, className }) => {
             data: positiveTrendValues,
           },
           {
-            name: 'Deaths',
+            name: 'Death Trends',
             data: deathValueTrends,
           },
         ]);
@@ -130,26 +130,6 @@ const TrendSelector = ({ id, className }) => {
 
   return (
     <>
-      <h1 className='graph1'><strong>Cases Trends</strong></h1>
-      <div className="chart1">
-        <ReactApexChart
-          options={options}
-          series={series}
-          type="bar" 
-          height={170}
-        />
-      </div>
-      <br></br>
-      <h1 className='graph2'><strong>Death Trends</strong></h1>
-      <div className='chart2'>
-        <ReactApexChart
-          options={options}
-          series={series}
-          type="bar"
-          height={170}
-        />
-      </div>
-
       <div className="dropdown">
         <label htmlFor="state">Filter by state:</label>
         <select
@@ -166,6 +146,26 @@ const TrendSelector = ({ id, className }) => {
           ))}
         </select>
       </div>
+      <br></br>
+      <h1 className='graph1'><strong>Cases Trends</strong></h1>
+      <div className="chart1">
+        <ReactApexChart
+          options={options}
+          series={series}
+          type="line" 
+          height={170}
+        />
+      </div>
+      <h1 className='graph2'><strong>Death Trends</strong></h1>
+      <div className='chart2'>
+        <ReactApexChart
+          options={options}
+          series={series}
+          type="line"
+          height={170}
+        />
+      </div>
+
     </>
   );
 };

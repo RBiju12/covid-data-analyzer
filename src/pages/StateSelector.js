@@ -59,6 +59,7 @@ const StateSelector = ({ id, className }) => {
   .map(item => ({ date: item.date, positive: item.positive }))
 
 
+  
   const dates = dataForState.slice(0, 5).map(item => item.date).sort((a, b) => a - b);
   const positiveValues = dataForState.slice(0, 5).map(item => item.positive).sort((a, b) => a - b);
 
@@ -130,27 +131,7 @@ const StateSelector = ({ id, className }) => {
 
   return (
     <>
-      <h1 className='graph1'><strong>Positive Cases</strong></h1>
-      <div className="chart1">
-        <ReactApexChart
-          options={options}
-          series={series}
-          type="bar" 
-          height={170}
-        />
-      </div>
-      <br></br>
-      <h1 className='graph2'><strong>Deaths</strong></h1>
-      <div className='chart2'>
-        <ReactApexChart
-          options={options}
-          series={series}
-          type="bar"
-          height={170}
-        />
-      </div>
-
-      <div className="dropdown">
+    <div className="dropdown">
         <label htmlFor="state">Filter by state:</label>
         <select
           id={id}
@@ -165,6 +146,25 @@ const StateSelector = ({ id, className }) => {
             </option>
           ))}
         </select>
+      </div>
+      <br></br>
+      <h1 className='graph1'><strong>Positive Cases</strong></h1>
+      <div className="chart1">
+        <ReactApexChart
+          options={options}
+          series={series}
+          type="bar" 
+          height={170}
+        />
+      </div>
+      <h1 className='graph2'><strong>Deaths</strong></h1>
+      <div className='chart2'>
+        <ReactApexChart
+          options={options}
+          series={series}
+          type="bar"
+          height={170}
+        />
       </div>
     </>
   );
