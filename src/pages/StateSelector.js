@@ -30,6 +30,19 @@ const StateSelector = ({ id, className }) => {
     }
   ]);
 
+  const [series3, setSeries3] = useState([
+    {
+      name: 'series1',
+      data: [],
+    },
+    {
+      name:'series2',
+      data: [],
+
+    }
+  ]);
+
+
 
   const [filterValue, setFilterValue] = useState('');
 
@@ -67,11 +80,21 @@ const StateSelector = ({ id, className }) => {
   .filter(item => item.state.startsWith(state))
   .map(item => ({date: item.date, death: item.death }))
 
+  const dataforTests = data
+  .filter(item => item.state.startsWith(state))
+  .map(item => ({date: item.date, hospitalized: item.hospitalized}))
+
+  const hospitalizations = dataforTests.slice(0, 5).map(item => item.hospitalized).sort((a, b) => a - b);
 
 
   const deathValues = dataForDeaths.slice(0, 5).map(item => item.death).sort((a, b) => a - b);
 
+  const dataforRecovered = data
+  .filter(item => item.state.startsWith(state))
+  .map(item => ({date: item.date, recovered: item.recovered}))
 
+
+  const recoveredvals = dataforRecovered.slice(0, 5).map(item => item.recovered).sort((a, b) => a - b);
         
         //const dates = updatedData.map((item) => item.date);
        // const cases = updatedData.map((item) => item.positive);
@@ -103,6 +126,17 @@ const StateSelector = ({ id, className }) => {
             data: deathValues,
           },
         ]);
+    
+      setSeries3([
+        {
+          name: "Hospitalizations",
+          data: hospitalizations,
+        },
+        {
+          name: "Recovered",
+          data: recoveredvals,
+        }
+      ]);
       })
       .catch((error) => console.log(error));
   };
@@ -148,7 +182,7 @@ const StateSelector = ({ id, className }) => {
         </select>
       </div>
       <br></br>
-      <h1 className='graph1'><strong>Positive Cases</strong></h1>
+      <h1 className='graph1'><strong>Positive Cases and Deaths</strong></h1>
       <div className="chart1">
         <ReactApexChart
           options={options}
@@ -157,14 +191,15 @@ const StateSelector = ({ id, className }) => {
           height={170}
         />
       </div>
-      <h1 className='graph2'><strong>Deaths</strong></h1>
+      <br></br>
+      <h1 className='graph2'><strong>Hospitalizations and Recovered</strong></h1>
       <div className='chart2'>
-        <ReactApexChart
+          <ReactApexChart
           options={options}
-          series={series}
+          series={series3}
           type="bar"
           height={170}
-        />
+          />
       </div>
     </>
   );

@@ -22,7 +22,7 @@
 }
 
 .about{
-    font-size: 15px;
+    font-size: 30px;
 }
 
 .information{
@@ -30,4 +30,8 @@
 }
 .homebackground{
     width: 100%;
+}
+
+.graph5{
+    font-size: 16px;
 }

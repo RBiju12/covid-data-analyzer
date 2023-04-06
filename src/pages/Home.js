@@ -5,7 +5,7 @@ import {dataref} from "./firebase"
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./pagestyles.css"
-
+import {TextField} from '@mui/material'
 
 function Home(){
 
@@ -48,11 +48,11 @@ console.log(allValue)
       <br></br>
       <br></br>
       <Button className='emailbutton' onClick={handleAdd}>Submit</Button>
-      <input className="emailform" placeholder='ex. janedoe@gmail.com' value={email} onChange={(e) =>
+      <TextField className="emailform" placeholder='ex. janedoe@gmail.com' variant='standard' value={email} onChange={(e) =>
       {setEmail(e.target.value)}} />
       <p id="alerttext"><i>Sign up to receive weekly updates on COVID data</i> </p>
-
-
+      <br>
+      </br>
 
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo-png.png'; 
 import {Link, useMatch, useResolvedPath} from 'react-router-dom'
+import { Avatar } from '@mui/material';
 
 
 function Navbar(){
@@ -13,7 +14,7 @@ function Navbar(){
            <CustomLink to ="/News">News</CustomLink>
            <CustomLink to ="/About">About</CustomLink>
         </ul>
-        <img className="logo" src={logo} alt="Logo" height="40px" width="90px" align="right"/>
+        <Avatar className="logo" src={logo} alt="Logo" height="200px" width="150px" align="right"/>
     </nav>
     )
 }
