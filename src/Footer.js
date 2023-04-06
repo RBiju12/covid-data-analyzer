@@ -3,6 +3,8 @@ import linkedin from './Linkedin.png';
 import gmail from './Gmail.png';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'reactjs-popup/dist/index.css';
+import Popup from 'reactjs-popup';
 
 function Footer(){
 
@@ -11,23 +13,28 @@ function Footer(){
 
         const handleSubmit = (event) => {
             event.preventDefault();
-
             if(userText.trim() === ''){
-        alert("Please enter in the field!")
-            }
+                <Popup open={true} closeOnDocumentClick onClose={() => {}}>
+                Please enter in the field!
+                </Popup>
+        }
             else if(!/(@gmail|outlook|hotmail)/.test(userText)){
-                alert("Please enter a valid email address!")
-            }
+                <Popup open={true} closeOnDocumentClick onClose={() => {}}>
+                Please enter a valid email address!
+                </Popup>
+                }
             else if(submittedEmails.includes(userText)){
-                alert("Email has already been used")
+                <Popup open={true} closeOnDocumentClick onClose={() => {}}>
+                Email has already been used
+                </Popup>
             }
             else{
-        setSubmittedEmails([...submittedEmails, userText]);
-        alert(`Thank you for submitting the newsletter: ${userText}`)
-            }
-}
-
-
+                setSubmittedEmails([...submittedEmails, userText]);
+                <Popup open={true} closeOnDocumentClick onClose={() => {}}>
+                 Thank you for submitting the newsletter: {userText}
+                </Popup>
+                }
+              }
 
     const year = new Date().getFullYear();
 

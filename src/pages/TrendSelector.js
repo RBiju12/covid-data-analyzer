@@ -5,7 +5,7 @@ import states from './states.json';
 import "./pagestyles.css";
 
 
-const StateSelector = ({ id, className }) => {
+const TrendSelector = ({ id, className }) => {
   const [options, setOptions] = useState({
     chart: {
       id: 'line-chart',
@@ -56,20 +56,19 @@ const StateSelector = ({ id, className }) => {
 
   const dataForState = data
   .filter(item => item.state.startsWith(state))
-  .map(item => ({ date: item.date, positive: item.positive }))
+  .map(item => ({ date: item.date, positiveIncrease: item.positiveIncrease }))
 
 
-  
   const dates = dataForState.slice(0, 5).map(item => item.date).sort((a, b) => a - b);
-  const positiveValues = dataForState.slice(0, 5).map(item => item.positive).sort((a, b) => a - b);
+  const positiveTrendValues = dataForState.slice(0, 5).map(item => item.positiveIncrease).sort((a, b) => a - b);
 
-  const dataForDeaths = data
+  const dataForDeathTrends = data
   .filter(item => item.state.startsWith(state))
-  .map(item => ({date: item.date, death: item.death }))
+ .map(item => ({date: item.date, deathIncrease: item.deathIncrease}))
 
 
 
-  const deathValues = dataForDeaths.slice(0, 5).map(item => item.death).sort((a, b) => a - b);
+  const deathValueTrends = dataForDeathTrends.slice(0, 5).map(item => item.deathIncrease).sort((a, b) => a - b);
 
 
         
@@ -95,12 +94,12 @@ const StateSelector = ({ id, className }) => {
         });
         setSeries([
           {
-            name: 'Cases',
-            data: positiveValues,
+            name: 'Case Trends',
+            data: positiveTrendValues,
           },
           {
-            name: 'Deaths',
-            data: deathValues,
+            name: 'Death Trends',
+            data: deathValueTrends,
           },
         ]);
       })
@@ -131,7 +130,7 @@ const StateSelector = ({ id, className }) => {
 
   return (
     <>
-    <div className="dropdown">
+      <div className="dropdown">
         <label htmlFor="state">Filter by state:</label>
         <select
           id={id}
@@ -148,36 +147,37 @@ const StateSelector = ({ id, className }) => {
         </select>
       </div>
       <br></br>
-      <h1 className='graph1'><strong>Positive Cases</strong></h1>
+      <h1 className='graph1'><strong>Cases Trends</strong></h1>
       <div className="chart1">
         <ReactApexChart
           options={options}
           series={series}
-          type="bar" 
+          type="line" 
           height={170}
         />
       </div>
-      <h1 className='graph2'><strong>Deaths</strong></h1>
+      <h1 className='graph2'><strong>Death Trends</strong></h1>
       <div className='chart2'>
         <ReactApexChart
           options={options}
           series={series}
-          type="bar"
+          type="line"
           height={170}
         />
       </div>
+
     </>
   );
 };
 
 
-StateSelector.propTypes = {
+TrendSelector.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
 };
 
 
-export default StateSelector;
+export default TrendSelector;
 
 
 
