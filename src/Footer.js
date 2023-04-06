@@ -4,7 +4,7 @@ import gmail from './Gmail.png';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'reactjs-popup/dist/index.css';
-import Popup from 'reactjs-popup';
+import './stylesheet.css'
 
 function Footer(){
 
@@ -14,25 +14,17 @@ function Footer(){
         const handleSubmit = (event) => {
             event.preventDefault();
             if(userText.trim() === ''){
-                <Popup open={true} closeOnDocumentClick onClose={() => {}}>
-                Please enter in the field!
-                </Popup>
+                alert("Please enter in the field")
         }
             else if(!/(@gmail|outlook|hotmail)/.test(userText)){
-                <Popup open={true} closeOnDocumentClick onClose={() => {}}>
-                Please enter a valid email address!
-                </Popup>
+                alert("Please enter a valid email address")
                 }
             else if(submittedEmails.includes(userText)){
-                <Popup open={true} closeOnDocumentClick onClose={() => {}}>
-                Email has already been used
-                </Popup>
+                alert("Email is already in use")
             }
             else{
                 setSubmittedEmails([...submittedEmails, userText]);
-                <Popup open={true} closeOnDocumentClick onClose={() => {}}>
-                 Thank you for submitting the newsletter: {userText}
-                </Popup>
+                 alert(`Thank you for submitting the newsletter: ${userText}`)
                 }
               }
 
@@ -50,12 +42,12 @@ function Footer(){
         </div>
         <div className='connect'>
             <h1>Connect</h1>
-            <a href="https://www.linkedin.com/in/rishan-biju-759a20242"><img src={linkedin} height="30px" width="40px" alt="Linkedin" /></a>
-            <a href="https://gmail.com"><img src={gmail} height="30px" width="40px" alt="Gmail" /></a>
-
-            
+            <a href="https://www.linkedin.com/in/rishan-biju-759a20242"><img src={linkedin} height="27px" width="40px" alt="Linkedin" /></a>
+            <a href="https://gmail.com"><img src={gmail} height="27px" width="40px" alt="Gmail" /></a>
         </div>
-
+        <div align="center">
+        {`Copyright  © Covid Analyzer ${year}`}
+        </div>
         <div className='newsletter'>
             <h2><strong>Join our Newsletter</strong></h2>
             <br></br>
@@ -64,7 +56,7 @@ function Footer(){
             <Button type="submit" onClick={handleSubmit}>Submit</Button>
         </div>
         
-        {`Copyright  © Covid Analyzer ${year}`}
+    
 
 
 
