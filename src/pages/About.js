@@ -4,14 +4,14 @@ import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./pagestyles.css"
 
-
+  
 function About(){
  const [email, setEmail] = useState('')
  
  const handleClick = () => {
     setEmail('rishanbiju@gmail.com');
  }
-
+//Changes states to email
    return(
     <>
    <div className='aboutcontain'>
