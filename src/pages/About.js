@@ -27,7 +27,7 @@ function About(){
 
 
 
-    <img src={Profile} height="280px" width="400px" alt="Profile"></img>
+    <img src={Profile} height="280px" width="400px" alt="Profile" className='profilepic'></img>
 
       <br></br>
       Additional Contact information:

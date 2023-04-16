@@ -169,3 +169,13 @@ h3{
 .connect{
     text-align: center;
 }
+
+@media (max-width: 1300px) {
+    .footer {
+        background-color: #5378DA;
+        padding: 10px;
+        text-align: center;
+        position: sticky;
+        bottom: 0;
+      }
+}
