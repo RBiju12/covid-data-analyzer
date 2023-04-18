@@ -26,40 +26,29 @@ const sns = new AWS.SNS({ region: AWS_REGION });
 
    const handleAdd = () => {
       if(email !==""){
-        dataref.ref().child('all').push(email)
-          .then(() => {
-            setEmail("")
-    
-            dataref.ref('all').once('value', (snapshot) => {
-              const emails = [];
-              snapshot.forEach((childSnapshot) => {
-                const email = childSnapshot.val();
-                emails.push(email);
-              });
-    
-              const emailList = emails.join(', ');
-    
-              const params = {
-                TopicArn: 'arn:aws:sns:us-east-1:549235800378:CovidAnalyzerData',
-                Message: `Thank you for signing up, you will receive updates: ${emailList}`
-              };
-    
-              sns.publish(params, (err, data) => {
-                if(err){
-                  console.error("Error sending SNS notification: ", err);
-                }
-                else{
-                  console.log("SNS notification sent: ", data)
-                }
-              });
-            });
-          })
-          .catch((error) => {
-            console.error("Error adding email ", error)
-          });
-      }
-    };
-    
+      dataref.ref().child('all').push(email)
+       .then(() => {
+         setEmail("")
+      
+         const params = {
+            TopicArn: 'arn:aws:sns:us-east-1:549235800378:CovidAnalyzerData',
+            Message: `Thank you for signing up, you will recieve updates: ${email}` 
+         };
+         sns.publish(params, (err, data) => {
+            if(err){
+               console.error("Error sending SNS notification: ", err);
+            }
+            else{
+               console.log("SNS notification sent: ", data)
+            }
+         });
+      })
+      .catch((error) => {
+         console.error("Error adding email ", error)
+      });
+   }
+
+};
    
    return(
    <div className='containerhome'>
