@@ -11,9 +11,12 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "apexcharts": "^3.37.0",
+    "aws-sdk": "^2.1359.0",
     "axios": "^1.3.2",
+    "body-parser": "^1.20.2",
     "bootstrap": "^5.2.3",
     "chart.js": "^4.2.0",
+    "express": "^4.18.2",
     "firebase": "^9.17.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -21,7 +24,7 @@
     "react-bootstrap": "^2.7.2",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.0",
+    "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
     "reactjs-popup": "^2.0.5",
     "web-vitals": "^2.1.4"
@@ -49,5 +52,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RBiju12/covid-data-analyzer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RBiju12/covid-data-analyzer/issues"
   }
 }

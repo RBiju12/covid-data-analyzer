@@ -1,5 +1,6 @@
 import firebase from "firebase/compat/app";
 import 'firebase/compat/database';
+import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
 
 
 const firebaseConfig = {
@@ -13,6 +14,18 @@ const firebaseConfig = {
   measurementId: "G-G63VCG5PHE"
 };
 
-firebase.initializeApp(firebaseConfig)
+const app = firebase.initializeApp(firebaseConfig)
+export const auth = getAuth(app)
+
+const provider = new GoogleAuthProvider()
+
+export const signInWithGoogle = () => {
+    signInWithPopup(auth, provider).then((result) => {
+      console.log(result)
+    }).catch((error) => {
+      alert(error)
+    });
+}
+
 export const dataref = firebase.database();
 export default firebase 
