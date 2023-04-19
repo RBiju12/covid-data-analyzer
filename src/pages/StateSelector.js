@@ -46,7 +46,7 @@ const StateSelector = ({ id, className }) => {
 
   const [filterValue, setFilterValue] = useState('');
 
-  //Fetch data function that grabes the data and allows for users to parse to find a particular state
+  //Fetch data function that grabs the data and allows for users to parse to find a particular state
 
   const fetchData = (state) => {
 
