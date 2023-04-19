@@ -10,6 +10,7 @@ import AWS from 'aws-sdk'
 
 function Home(){
    
+//All of the AWS regions and keys for configuration
 const AWS_REGION = 'us-east-1';
 
 
@@ -21,6 +22,7 @@ AWS.config.update({
 
 
 const sns = new AWS.SNS({ region: AWS_REGION });
+//Email state where if the the user types their email it pushes it to the Firebase database then cleares the text field once they submit the form
 
    const[email, setEmail] = useState('')
 
@@ -34,6 +36,7 @@ const sns = new AWS.SNS({ region: AWS_REGION });
             TopicArn: 'arn:aws:sns:us-east-1:549235800378:CovidAnalyzerData',
             Message: `Thank you for signing up, you will recieve updates: ${email}` 
          };
+         //Displays a message once user clicks submit
          sns.publish(params, (err, data) => {
             if(err){
                console.error("Error sending SNS notification: ", err);
@@ -46,6 +49,7 @@ const sns = new AWS.SNS({ region: AWS_REGION });
       .catch((error) => {
          console.error("Error adding email ", error)
       });
+      //Error handling of the SNS notification
    }
 
 };
@@ -79,5 +83,6 @@ const sns = new AWS.SNS({ region: AWS_REGION });
     </div>
    );
 }
+//Renders all of the Home page and renders all of the information/text field
 
 export default Home;

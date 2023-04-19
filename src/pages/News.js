@@ -1,6 +1,7 @@
 import React from 'react'
 
 function News(){
+   //Connects to RSS feed to updates of COVID Data
    return(
    <>
    <div className='contain'>

@@ -4,7 +4,7 @@ import ReactApexChart from 'react-apexcharts';
 import states from './states.json';
 import "./pagestyles.css";
 
-
+//StateSelector component that initializes the option set that create a line chart with empty data
 const StateSelector = ({ id, className }) => {
   const [options, setOptions] = useState({
     chart: {
@@ -29,7 +29,7 @@ const StateSelector = ({ id, className }) => {
 
     }
   ]);
-
+//Creates another state that manages two datasets on a widget
   const [series3, setSeries3] = useState([
     {
       name: 'series1',
@@ -46,6 +46,7 @@ const StateSelector = ({ id, className }) => {
 
   const [filterValue, setFilterValue] = useState('');
 
+  //Fetch data function that grabes the data and allows for users to parse to find a particular state
 
   const fetchData = (state) => {
 
@@ -67,6 +68,8 @@ const StateSelector = ({ id, className }) => {
         // .slice(0, 5)
         // .sort((a, b) => a - b);
 
+  //Parses data and grabs 5 datasets, maps it based on the dates and positive cases
+
   const dataForState = data
   .filter(item => item.state.startsWith(state))
   .map(item => ({ date: item.date, positive: item.positive }))
@@ -76,6 +79,8 @@ const StateSelector = ({ id, className }) => {
   const dates = dataForState.slice(0, 5).map(item => item.date).sort((a, b) => a - b);
   const positiveValues = dataForState.slice(0, 5).map(item => item.positive).sort((a, b) => a - b);
 
+
+  //Parses data and grabs 5 datasets based on the deaths and hospitalization
   const dataForDeaths = data
   .filter(item => item.state.startsWith(state))
   .map(item => ({date: item.date, death: item.death }))
@@ -88,6 +93,7 @@ const StateSelector = ({ id, className }) => {
 
 
   const deathValues = dataForDeaths.slice(0, 5).map(item => item.death).sort((a, b) => a - b);
+  //Grabs recovered cases and maps it with 5 datasets
 
   const dataforRecovered = data
   .filter(item => item.state.startsWith(state))
@@ -140,8 +146,9 @@ const StateSelector = ({ id, className }) => {
       })
       .catch((error) => console.log(error));
   };
+  //All of these set state methods allow for putting the data in the chart and rendering the widgets
 
-
+//This function handles the Filter mechanism for the state a user selects and fetches the data
   const handleFilterChange = (value) => {
     setFilterValue(value);
     if (value) {
@@ -151,7 +158,7 @@ const StateSelector = ({ id, className }) => {
     }
   };
 
-
+//This function handles user input 
   const handleChange = (event) => {
     const { value } = event.target;
     handleFilterChange(value);
@@ -162,7 +169,7 @@ const StateSelector = ({ id, className }) => {
 //     fetchData();
 //   }, []);
 
-
+  //Maps the state data and creates a dropdown for users to click through each state to see widgets
   return (
     <>
     <div className="dropdown">
@@ -204,6 +211,7 @@ const StateSelector = ({ id, className }) => {
     </>
   );
 };
+//Renders all of the charts and displays 2 datasets for each chart
 
 
 StateSelector.propTypes = {

@@ -11,6 +11,7 @@ import { Route, Routes } from 'react-router-dom';
 import { signInWithGoogle } from './pages/firebase'; 
 import googleimg from "./google.png"
 
+//Popup Component where it displays the Google Authentication in the body 
 function Popup({ onClose }) {
   return (
     <div className='popup'>
@@ -24,19 +25,24 @@ function Popup({ onClose }) {
       <br></br>
       <br></br>
       <button className='close-btn' onClick={onClose}>Close</button>
+
     
     
     </div>
   );
 }
 
+
+
 function App() {
   const [showPopup, setShowPopup] = useState(true);
 
   const handleClosePopup = () => {
     setShowPopup(false);
-
+//This closes the popup
   };
+
+  //This defines all of the Routes to the Navbar on the website
   return (
     <>
       {showPopup && <Popup onClose={handleClosePopup} />}

@@ -18,6 +18,7 @@ function Navbar(){
     </nav>
     )
 }
+//This displays all links to Navbar component so it is accessible 
 
 function CustomLink({to, children, ...props}){
     const resolvedPath = useResolvedPath(to)

@@ -10,18 +10,21 @@ function Footer(){
 
     const[userText, setUserText] = useState('');
     const[submittedEmails, setSubmittedEmails] = useState([])
-
+    //Handles user input in the Footer Component
         const handleSubmit = (event) => {
             event.preventDefault();
             if(userText.trim() === ''){
                 alert("Please enter in the field")
+                //if the user does not type anything it displays a message
         }
             else if(!/(@gmail|outlook|hotmail)/.test(userText)){
                 alert("Please enter a valid email address")
+                //If the user does not type the appropriate email field it displays a message
                 }
             else if(submittedEmails.includes(userText)){
                 alert("Email is already in use")
             }
+            //If the user already has the email in use it displays email is already in use
             else{
                 setSubmittedEmails([...submittedEmails, userText]);
                  alert(`Thank you for submitting the newsletter: ${userText}`)
@@ -29,7 +32,7 @@ function Footer(){
               }
 
     const year = new Date().getFullYear();
-
+    //Returns all of the jsx(content) for the Footer Component 
     return(
         <>
         <div className='footer'>
@@ -47,7 +50,7 @@ function Footer(){
         </div>
         <div align="center">
         {`Copyright  © Covid Analyzer ${year}`}
-        </div>
+        </div> 
         <div className='newsletter'>
             <h2><strong>Join our Newsletter</strong></h2>
             <br></br>
@@ -55,7 +58,7 @@ function Footer(){
 
             <Button type="submit" onClick={handleSubmit}>Submit</Button>
         </div>
-        
+
     
 
 

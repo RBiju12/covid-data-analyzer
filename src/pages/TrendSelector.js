@@ -4,7 +4,7 @@ import ReactApexChart from 'react-apexcharts';
 import states from './states.json';
 import "./pagestyles.css";
 
-
+//Trend Selector component that renders the Trend widgets
 const TrendSelector = ({ id, className }) => {
   const [options, setOptions] = useState({
     chart: {
@@ -15,7 +15,7 @@ const TrendSelector = ({ id, className }) => {
     },
   });
 
-
+//Created multiple states that manage the data on the charts
 
   const [series, setSeries] = useState([
     {
@@ -45,7 +45,7 @@ const TrendSelector = ({ id, className }) => {
 
 
   const [filterValue, setFilterValue] = useState('');
-
+//Fetchdata function that fetches the covid data and displays the trend data based on the state
 
   const fetchData = (state) => {
 
@@ -67,6 +67,8 @@ const TrendSelector = ({ id, className }) => {
         // .slice(0, 5)
         // .sort((a, b) => a - b);
 
+  //Maps and slices the data based on the date and positive increase in cases 
+
   const dataForState = data
   .filter(item => item.state.startsWith(state))
   .map(item => ({ date: item.date, positiveIncrease: item.positiveIncrease }))
@@ -74,16 +76,17 @@ const TrendSelector = ({ id, className }) => {
 
   const dates = dataForState.slice(0, 5).map(item => item.date).sort((a, b) => a - b);
   const positiveTrendValues = dataForState.slice(0, 5).map(item => item.positiveIncrease).sort((a, b) => a - b);
-
+//Maps and slices data based on death trends
   const dataForDeathTrends = data
   .filter(item => item.state.startsWith(state))
  .map(item => ({date: item.date, deathIncrease: item.deathIncrease}))
 
-
+//Maps and slices the data based on the hospitalization increase trend 
  const dataforHospitalizedTrends = data
  .filter(item => item.state.startsWith(state))
  .map(item => ({date: item.date, hospitalizedIncrease: item.hospitalizedIncrease}))
 
+ //Maps and slices the data based on the total Viral test 
  const dataforViralTests = data
  .filter(item => item.state.startsWith(state))
  .map(item => ({date: item.date, totalTestsViral: item.totalTestsViral}))
@@ -139,10 +142,12 @@ const TrendSelector = ({ id, className }) => {
           }
         ]);
       })
+      //Sets the data based on the Trend data and renders the charts 
       .catch((error) => console.log(error));
   };
 
 
+  //Filter function that handles user input for selecting the state
   const handleFilterChange = (value) => {
     setFilterValue(value);
     if (value) {
@@ -163,7 +168,7 @@ const TrendSelector = ({ id, className }) => {
 //     fetchData();
 //   }, []);
 
-
+//Renders the Trend Widgets and allows for filtering the render widgets of the datasets
   return (
     <>
       <div className="dropdown">

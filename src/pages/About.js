@@ -37,6 +37,7 @@ function About(){
     </div>
     </>
    );
+  //Returns about us page where it displays Information about me and my email through a button
 }
 
 
