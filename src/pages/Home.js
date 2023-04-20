@@ -27,32 +27,44 @@ const sns = new AWS.SNS({ region: AWS_REGION });
    const[email, setEmail] = useState('')
 
    const handleAdd = () => {
-      if(email !==""){
-      dataref.ref().child('all').push(email)
-       .then(() => {
-         setEmail("")
-      
-         const params = {
-            TopicArn: 'arn:aws:sns:us-east-1:549235800378:CovidAnalyzerData',
-            Message: `Thank you for signing up, you will recieve updates: ${email}` 
-         };
-         //Displays a message once user clicks submit
-         sns.publish(params, (err, data) => {
-            if(err){
-               console.error("Error sending SNS notification: ", err);
-            }
-            else{
-               console.log("SNS notification sent: ", data)
-            }
-         });
-      })
-      .catch((error) => {
-         console.error("Error adding email ", error)
-      });
-      //Error handling of the SNS notification
-   }
-
+  if(email !== "") {
+    // check if the email is already registered
+    dataref.ref('all').orderByValue().equalTo(email).once('value', (snapshot) => {
+      if (snapshot.exists()) {
+        alert(`The email ${email} is already registered.`);
+      } else {
+        // check if the email is in the correct format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        if (!emailRegex.test(email)) {
+          alert("Please enter a valid email address.");
+        } else {
+          // push the email to the Firebase database and send an SNS notification to the user
+          dataref.ref('all').push(email)
+          .then(() => {
+            setEmail("");
+            const params = {
+              TopicArn: 'arn:aws:sns:us-east-1:549235800378:CovidAnalyzerData',
+              Message: `Thank you for signing up, you will receive updates: ${email}` 
+            };
+            sns.publish(params, (err, data) => {
+              if(err) {
+                console.error("Error sending SNS notification: ", err);
+              } else {
+                console.log("SNS notification sent: ", data)
+              }
+            });
+          })
+          .catch((error) => {
+            console.error("Error adding email ", error)
+          });
+        }
+      }
+    });
+  } else {
+    alert("Please enter an email address.");
+  }
 };
+
    
    return(
    <div className='containerhome'>

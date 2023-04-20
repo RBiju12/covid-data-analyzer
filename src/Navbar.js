@@ -14,7 +14,9 @@ function Navbar(){
            <CustomLink to ="/News">News</CustomLink>
            <CustomLink to ="/About">About</CustomLink>
         </ul>
+       <Link to="/">
         <Avatar className="logo" src={logo} alt="Logo" height="200px" width="150px" align="right"/>
+       </Link> 
     </nav>
     )
 }
