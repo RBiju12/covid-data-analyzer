@@ -28,6 +28,7 @@ function Footer(){
             else{
                 setSubmittedEmails([...submittedEmails, userText]);
                  alert(`Thank you for submitting the newsletter: ${userText}`)
+                 
                 }
               }
 

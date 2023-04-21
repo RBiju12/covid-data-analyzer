@@ -32,7 +32,7 @@ function About(){
       <br></br>
       Additional Contact information:
       <p>{email}</p>
-      <Button onClick={handleClick}>Email</Button>
+      <Button onClick={handleClick} className='buttonchange'>Email</Button>
     </p>
     </div>
     </>

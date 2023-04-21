@@ -170,6 +170,10 @@ h3{
     text-align: center;
 }
 
+.popup{
+    z-index: 1000;
+}
+
 @media (max-width: 1300px) {
     .footer {
         background-color: #5378DA;
