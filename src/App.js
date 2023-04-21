@@ -11,7 +11,7 @@ import { Route, Routes } from 'react-router-dom';
 import { signInWithGoogle } from './pages/firebase'; 
 import googleimg from "./google.png"
 
-//Popup Component where it displays the Google Authentication in the body 
+//Popup Component where it displays the Google Authentication in the body and a close button 
 function Popup({ onClose }) {
   return (
     <div className='popup'>
