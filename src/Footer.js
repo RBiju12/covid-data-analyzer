@@ -27,8 +27,8 @@ function Footer(){
             //If the user already has the email in use it displays email is already in use
             else{
                 setSubmittedEmails([...submittedEmails, userText]);
-                 alert(`Thank you for submitting the newsletter: ${userText}`)
-                 
+                alert(`Thank you for submitting the newsletter: ${userText}`)
+                setUserText('')
                 }
               }
 
@@ -55,17 +55,11 @@ function Footer(){
         <div className='newsletter'>
             <h2><strong>Join our Newsletter</strong></h2>
             <br></br>
+            <form onSubmit={handleSubmit}>
             <input type="text" value={userText} placeholder="ex.janedoe@gmail.com" onChange={(e) => setUserText(e.target.value)}/>
-
-            <Button type="submit" onClick={handleSubmit}>Submit</Button>
+            <Button type="submit">Submit</Button>
+            </form>
         </div>
-
-    
-
-
-
-        
-        
         </footer>
         </div>
         </>
